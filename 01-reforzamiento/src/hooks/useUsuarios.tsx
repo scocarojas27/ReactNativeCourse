@@ -10,11 +10,12 @@ export const useUsuarios = () => {
 
     useEffect(() => {
         return () => {
-            cargarUsuarios();
+            cargarUsuarios(0);
         }
     }, [])
 
-    const cargarUsuarios = async () => {
+    const cargarUsuarios = async (page: number) => {
+        paginaRef.current += page;
         const res = await reqResApi.get<ReqResListado>('/users', {
             params: {
                 page: paginaRef.current
@@ -23,16 +24,26 @@ export const useUsuarios = () => {
 
         if (res.data.data.length > 0) {
             setusuarios(res.data.data);
-            paginaRef.current += 1;
         }
         else {
             alert("No hay mas registros")
+            paginaRef.current--;
         }
+    }
+
+    const paginaSiguiente = () => {
+        cargarUsuarios(1)
+    }
+
+    const paginaAnterior = () => {
+        cargarUsuarios(-1)
     }
 
     return {
         usuarios,
-        cargarUsuarios
+        paginaRef,
+        paginaSiguiente,
+        paginaAnterior
     }
 
 }

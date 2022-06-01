@@ -3,7 +3,7 @@ import { Usuario } from '../interfaces/reqRes';
 
 export const Usuarios = () => {
 
-    const { usuarios, cargarUsuarios } = useUsuarios();
+    const { usuarios, paginaRef, paginaAnterior, paginaSiguiente } = useUsuarios();
 
     const renderItems = ({ id, first_name, last_name, email, avatar }: Usuario) => {
         return (
@@ -39,12 +39,13 @@ export const Usuarios = () => {
                 </tbody>
             </table>
             <button className="btn btn-primary"
-                onClick={cargarUsuarios}>
+                disabled={paginaRef.current === 1}
+                onClick={paginaAnterior}>
                 Anteriores
             </button>
             &nbsp;
             <button className="btn btn-primary"
-                onClick={cargarUsuarios}>
+                onClick={paginaSiguiente}>
                 Siguientes
             </button>
         </>
