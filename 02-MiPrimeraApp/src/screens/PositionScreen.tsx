@@ -13,9 +13,9 @@ export const PositionScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
-        width: 300,
-        height: 300,
+        flex: 1,
+        // width: 300,
+        // height: 300,
         // justifyContent: 'center',
         // alignItems: 'center',
         backgroundColor: '#28C4D9'
