@@ -1,5 +1,9 @@
 import { StyleSheet } from "react-native";
 
+export const colores = {
+    primary: "#5856D6",
+}
+
 export const styles = StyleSheet.create({
     globalMargin: {
         marginHorizontal: 20,
@@ -42,5 +46,13 @@ export const styles = StyleSheet.create({
     },
     menuBoton: {
         marginVertical: 10,
+    },
+    botonBurger: {
+        height: 40,
+        width: 40,
+        borderRadius: 4,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#5856D6',
     }
 });
