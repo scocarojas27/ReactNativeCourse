@@ -1,17 +1,21 @@
 import React from 'react'
-import { Dimensions, Image, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, View, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../Navigation/Navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useMovieDetails } from '../hooks/useMovieDetails';
+import { MovieDetails } from '../components/MovieDetails';
 
 const screenHeight = Dimensions.get('window').height;
 
 interface Props extends StackScreenProps<RootStackParams, 'DetailScreen'> { }
 
-export const DetailScreen = ({ route }: Props) => {
+export const DetailScreen = ({ route, navigation }: Props) => {
 
     const movie = route.params;
     const uri = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+
+    const { isLoading, fullMovie, cast } = useMovieDetails(movie.id)
 
     return (
         <ScrollView>
@@ -27,13 +31,23 @@ export const DetailScreen = ({ route }: Props) => {
                 <Text style={styles.subtitle}>{movie.original_title}</Text>
                 <Text style={styles.title}>{movie.title}</Text>
             </View>
-            <View style={styles.marginContainer}>
-                <Icon
-                    name='star-outline'
-                    color='grey'
-                    size={20}
-                />
+            {
+                isLoading
+                    ? <ActivityIndicator size={35} color='grey' style={{ marginTop: 20 }} />
+                    : <MovieDetails fullMovie={fullMovie!} cast={cast} />
+            }
+            <View style={styles.backButton}>
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                >
+                    <Icon
+                        name='arrow-back-outline'
+                        color='black'
+                        size={60}
+                    />
+                </TouchableOpacity>
             </View>
+
         </ScrollView>
     )
 }
@@ -76,5 +90,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: 'black',
+    },
+    backButton: {
+        position: 'absolute',
+        zIndex: 999,
+        elevation: 11,
+        top: 30,
+        left: 5
     }
 });
