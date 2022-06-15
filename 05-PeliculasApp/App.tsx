@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Navigation } from './src/Navigation/Navigation';
 import { FadeScreen } from './src/screens/FadeScreen';
 import { GradientProvider } from './src/context/GradientContext';
+import { LogBox } from 'react-native'
 
 const AppState = ({ children }: any) => {
   return (
