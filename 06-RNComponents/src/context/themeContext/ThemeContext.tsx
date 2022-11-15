@@ -24,7 +24,7 @@ export const ThemeProvider = ({ children }: any) => {
         //     : setDarkTheme()
 
         AppState.addEventListener('change', (status) => {
-            if (status === 'active') {
+            if (status === 'active') { //se valida el estado de la aplicación para hacer el cambio de tema
                 Appearance.getColorScheme() === 'light'
                     ? setLightTheme()
                     : setDarkTheme()
