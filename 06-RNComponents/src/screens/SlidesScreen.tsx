@@ -5,6 +5,8 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useAnimation } from '../hooks/useAnimation';
 import { StackScreenProps } from '@react-navigation/stack';
+import { useContext } from 'react';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 
@@ -38,13 +40,14 @@ export const SlidesScreen = ({ navigation }: Props) => {
 
     const [activeIndex, setActiveIndex] = useState(0)
     const { opacity, fadeIn, fadeOut } = useAnimation()
+    const { theme: { colors } } = useContext(ThemeContext);
     const isVisible = useRef(false)
 
     const renderItem = (item: Slide) => {
         return (
             <View style={{
                 flex: 1,
-                backgroundColor: 'white',
+                backgroundColor: colors.background,
                 borderRadius: 5,
                 padding: 40,
                 justifyContent: 'center',
@@ -58,8 +61,8 @@ export const SlidesScreen = ({ navigation }: Props) => {
                         resizeMode: 'center',
                     }}
                 />
-                <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.subTitle}>{item.desc}</Text>
+                <Text style={{ ...styles.title, color: colors.primary }}>{item.title}</Text>
+                <Text style={{ ...styles.subTitle, color: colors.text }}>{item.desc}</Text>
             </View>
         )
     }
@@ -103,7 +106,7 @@ export const SlidesScreen = ({ navigation }: Props) => {
                         width: 10,
                         height: 10,
                         borderRadius: 5,
-                        backgroundColor: '#5856D6'
+                        backgroundColor: colors.primary
                     }}
                 />
                 <Animated.View
@@ -112,7 +115,7 @@ export const SlidesScreen = ({ navigation }: Props) => {
                     }}>
                     <TouchableOpacity style={{
                         flexDirection: 'row',
-                        backgroundColor: '#5856D6',
+                        backgroundColor: colors.primary,
                         width: 150,
                         height: 50,
                         borderRadius: 10,
@@ -128,14 +131,14 @@ export const SlidesScreen = ({ navigation }: Props) => {
                     >
                         <Text style={{
                             fontSize: 25,
-                            color: 'white',
+                            color: colors.text,
                         }}
                         >
                             Entrar
                         </Text>
                         <Icon
                             name='chevron-forward-outline'
-                            color='white'
+                            color={colors.text}
                             size={30}
                         />
                     </TouchableOpacity>

@@ -23,9 +23,7 @@ export const Navigator = () => {
 
     return (
         <NavigationContainer
-            theme={{
-                theme
-            }}
+            theme={theme}
         >
             <Stack.Navigator
                 screenOptions={{
